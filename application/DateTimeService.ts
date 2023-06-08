@@ -13,8 +13,15 @@ class MockDateTimeService implements DateTimeService {
   }
 }
 
+class DateTimeServiceImpl implements DateTimeService {
+  getNow = (): Date => {
+    return new Date()
+  }
+}
+
 export {
-  MockDateTimeService
+  MockDateTimeService,
+  DateTimeServiceImpl
 }
 
 export type {
