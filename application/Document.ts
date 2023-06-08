@@ -51,6 +51,9 @@ class DocumentImpl implements Document {
     this.text = snapshot.text
   }
   commit = (): void => {
+    const lastSnapshot = this.snapshots[this.snapshots.length - 1]
+    if (lastSnapshot && lastSnapshot.text == this.text) return
+
     const snapshot = new SnapshotImpl(this.text, this.dateTimeService.getNow())
     this.snapshots.push(snapshot)
   }
