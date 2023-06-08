@@ -8,7 +8,7 @@ class MockDateTimeService implements DateTimeService {
     this.date = date
   }
 
-  getNow(): Date {
+  getNow = (): Date => {
     return this.date
   }
 }
