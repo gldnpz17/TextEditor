@@ -26,16 +26,24 @@ class LocalStorageSavingStrategy implements SavingStrategy {
 
   save(document: Document): void {
     const data = JSON.stringify({
-      text: document.getText()
+      text: document.getText(),
+      snapshots: document.snapshots
     })
 
     window.localStorage.setItem(this.itemKey, data)
   }
   load(): Document {
-    const data = JSON.parse(window.localStorage.getItem(this.itemKey))
+    const rawData = window.localStorage.getItem(this.itemKey)
     const document = new DocumentImpl(this.dateTimeService)
 
+    if (rawData == null) return document
+
+    const data = JSON.parse(rawData)
     document.setText(data.text)
+    document.snapshots = data.snapshots.map(snapshot => ({
+      ...snapshot,
+      timestamp: new Date(Date.parse(snapshot.timestamp))
+    }))
 
     return document
   }
