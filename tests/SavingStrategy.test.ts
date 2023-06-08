@@ -59,7 +59,6 @@ test('Saves document snapshot', () => {
 })
 
 test('Creates new document when empty', () => {
-  const d = new DocumentImpl(mockDateTimeService)
   const s = new LocalStorageSavingStrategy(mockDateTimeService)
 
   expect(() => s.load).not.toThrow()
