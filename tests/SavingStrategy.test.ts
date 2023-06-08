@@ -34,6 +34,7 @@ test('Saves document text', () => {
   const d = new DocumentImpl(mockDateTimeService)
   const s = new LocalStorageSavingStrategy(mockDateTimeService)
 
+  d.setText('Hello')
   s.save(d)
   const ld = s.load()
 
