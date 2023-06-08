@@ -40,3 +40,31 @@ test('Saves document text', () => {
 
   expect(ld.getText()).toBe(d.getText())
 })
+
+test('Saves document snapshot', () => {
+  const d = new DocumentImpl(mockDateTimeService)
+  const s = new LocalStorageSavingStrategy(mockDateTimeService)
+
+  d.setText('Before')
+  d.commit()
+  d.setText('After')
+  s.save(d)
+
+  const ld = s.load()
+
+  d.snapshots.forEach((snapshot, index) => {
+    expect(ld.snapshots[index].text).toBe(snapshot.text)
+    expect(ld.snapshots[index].timestamp).toBe(snapshot.timestamp)
+  })
+})
+
+test('Creates new document when empty', () => {
+  const d = new DocumentImpl(mockDateTimeService)
+  const s = new LocalStorageSavingStrategy(mockDateTimeService)
+
+  expect(() => s.load).not.toThrow()
+  
+  const ld = s.load()
+
+  expect(ld).toBeInstanceOf(DocumentImpl)
+})
