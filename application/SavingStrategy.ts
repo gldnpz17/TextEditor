@@ -1,4 +1,5 @@
-import { Document } from "./Document"
+import { DateTimeService } from "./DateTimeService"
+import { Document, DocumentImpl } from "./Document"
 
 interface SavingStrategy {
   save(document: Document): void
@@ -16,11 +17,27 @@ class MockSavingStrategy implements SavingStrategy {
 }
 
 class LocalStorageSavingStrategy implements SavingStrategy {
+  itemKey = 'document'
+  dateTimeService: DateTimeService
+
+  constructor(dateTimeService: DateTimeService) {
+    this.dateTimeService = dateTimeService
+  }
+
   save(document: Document): void {
-    throw new Error("Method not implemented.")
+    const data = JSON.stringify({
+      text: document.getText()
+    })
+
+    window.localStorage.setItem(this.itemKey, data)
   }
   load(): Document {
-    throw new Error("Method not implemented.")
+    const data = JSON.parse(window.localStorage.getItem(this.itemKey))
+    const document = new DocumentImpl(this.dateTimeService)
+
+    document.setText(data.text)
+
+    return document
   }
 }
 
