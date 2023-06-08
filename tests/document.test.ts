@@ -50,12 +50,13 @@ test('Commits change before restoring', () => {
 test('Saves the whole document', () => {
   const d = new DocumentImpl(mockDateTimeService)
   const s = new MockSavingStrategy()
+  const save = jest.spyOn(s, 'save')
 
   d.setText(sampleText)
   d.setSavingStrategy(s)
   d.save()
 
-  expect(s.save).toBeCalled()
+  expect(save).toBeCalled()
   expect(s.document).toBe(d)
 })
 
