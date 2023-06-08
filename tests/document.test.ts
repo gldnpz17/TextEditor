@@ -65,3 +65,13 @@ test('Throws on null text', () => {
 
   expect(() => d.setText(null)).toThrowError('Null text argument.')
 })
+
+test('Commits once for the same text', () => {
+  const d = new DocumentImpl(mockDateTimeService)
+
+  d.setText(sampleText)
+  d.commit()
+  d.commit()
+
+  expect(d.snapshots.length).toBe(1)
+})
