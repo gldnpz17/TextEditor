@@ -4,7 +4,7 @@ import { LocalStorageSavingStrategy } from "../application/SavingStrategy"
 const mockDate = new Date()
 const mockDateTimeService = new MockDateTimeService(mockDate)
 
-test('Saves to local storage', () => {
+test('Saves document text', () => {
   const d = new DocumentImpl(mockDateTimeService)
   const s = new LocalStorageSavingStrategy()
 
