@@ -54,7 +54,7 @@ test('Saves document snapshot', () => {
 
   d.snapshots.forEach((snapshot, index) => {
     expect(ld.snapshots[index].text).toBe(snapshot.text)
-    expect(ld.snapshots[index].timestamp).toBe(snapshot.timestamp)
+    expect(ld.snapshots[index].timestamp).toStrictEqual(snapshot.timestamp)
   })
 })
 
